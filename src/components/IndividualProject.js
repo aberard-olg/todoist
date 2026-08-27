@@ -3,6 +3,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { useProjectsValue, useSelectedProjectValue } from '../context';
 import { firebase } from '../firebase';
+import { PROJECT_KEYS } from '../constants';
 
 export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -17,7 +18,7 @@ export const IndividualProject = ({ project }) => {
       .delete()
       .then(() => {
         setProjects([...projects]);
-        setSelectedProject('INBOX');
+        setSelectedProject(PROJECT_KEYS.INBOX);
       });
   };
 

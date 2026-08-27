@@ -6,6 +6,7 @@ import { firebase } from '../firebase';
 import { useSelectedProjectValue } from '../context';
 import { ProjectOverlay } from './ProjectOverlay';
 import { TaskDate } from './TaskDate';
+import { DEFAULT_USER_ID, PROJECT_KEYS, DATE_FORMAT } from '../constants';
 
 export const AddTask = ({
   showAddTaskMain = true,
@@ -26,10 +27,10 @@ export const AddTask = ({
     const projectId = project || selectedProject;
     let collatedDate = '';
 
-    if (projectId === 'TODAY') {
-      collatedDate = moment().format('DD/MM/YYYY');
-    } else if (projectId === 'NEXT_7') {
-      collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
+    if (projectId === PROJECT_KEYS.TODAY) {
+      collatedDate = moment().format(DATE_FORMAT);
+    } else if (projectId === PROJECT_KEYS.NEXT_7) {
+      collatedDate = moment().add(7, 'days').format(DATE_FORMAT);
     }
 
     return (
@@ -43,7 +44,7 @@ export const AddTask = ({
           projectId,
           task,
           date: collatedDate || taskDate,
-          userId: 'jlIFXIwyAL3tzHMtzRbw',
+          userId: DEFAULT_USER_ID,
         })
         .then(() => {
           setTask('');
