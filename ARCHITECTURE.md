@@ -53,12 +53,15 @@ Fetches and manages tasks for a selected project. Handles:
 - Real-time synchronization with Firebase
 - Filtering tasks by project, date, or collated task type
 - Separating archived and active tasks
+- Loading and error states
 
 **Returns:**
 ```javascript
 {
   tasks: Array,        // Active tasks
-  archivedTasks: Array // Archived tasks
+  archivedTasks: Array, // Archived tasks
+  loading: boolean,    // Loading state
+  error: Error|null    // Error object if fetch failed
 }
 ```
 
@@ -69,7 +72,9 @@ Fetches and manages projects for the current user.
 ```javascript
 {
   projects: Array,     // User's projects
-  setProjects: Function // Update projects
+  setProjects: Function, // Update projects
+  loading: boolean,    // Loading state
+  error: Error|null    // Error object if fetch failed
 }
 ```
 
@@ -186,13 +191,14 @@ npm run build
 ## Future Improvements
 
 1. **Authentication**: Replace hardcoded user ID with Firebase Authentication
-2. **Error Handling**: Add comprehensive error handling and user feedback
+2. ~~**Error Handling**: Add comprehensive error handling and user feedback~~ ✅ Done - Added error handling to all Firebase operations
 3. **Performance**: Implement React.memo and useMemo for optimization
 4. **Accessibility**: Improve keyboard navigation and ARIA labels
 5. **React Upgrade**: Update to React 18+ for better performance
 6. **Type Safety**: Consider migrating to TypeScript
 7. **Testing**: Increase test coverage for hooks and context
 8. **Error Boundaries**: Add error boundaries for better error handling
+9. **Loading States**: Add loading indicators using the new loading states from hooks
 
 ## Contributing
 
