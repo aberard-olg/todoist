@@ -28,7 +28,7 @@ export const Tasks = () => {
 
   useEffect(() => {
     document.title = `${projectName}: Todoist`;
-  });
+  }, [projectName]);
 
   return (
     <div className="tasks" data-testid="tasks">

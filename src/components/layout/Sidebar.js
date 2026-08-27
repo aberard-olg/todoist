@@ -8,6 +8,7 @@ import {
 import { Projects } from '../Projects';
 import { useSelectedProjectValue } from '../../context';
 import { AddProject } from '../AddProject';
+import { PROJECT_KEYS } from '../../constants';
 
 export const Sidebar = () => {
   const { setSelectedProject } = useSelectedProjectValue();
@@ -28,12 +29,12 @@ export const Sidebar = () => {
             role="button"
             onClick={() => {
               setActive('inbox');
-              setSelectedProject('INBOX');
+              setSelectedProject(PROJECT_KEYS.INBOX);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setActive('inbox');
-                setSelectedProject('INBOX');
+                setSelectedProject(PROJECT_KEYS.INBOX);
               }
             }}
           >
@@ -54,12 +55,12 @@ export const Sidebar = () => {
             role="button"
             onClick={() => {
               setActive('today');
-              setSelectedProject('TODAY');
+              setSelectedProject(PROJECT_KEYS.TODAY);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setActive('today');
-                setSelectedProject('TODAY');
+                setSelectedProject(PROJECT_KEYS.TODAY);
               }
             }}
           >
@@ -80,12 +81,12 @@ export const Sidebar = () => {
             role="button"
             onClick={() => {
               setActive('next_7');
-              setSelectedProject('NEXT_7');
+              setSelectedProject(PROJECT_KEYS.NEXT_7);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 setActive('next_7');
-                setSelectedProject('NEXT_7');
+                setSelectedProject(PROJECT_KEYS.NEXT_7);
               }
             }}
           >

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 import { firebase } from '../firebase';
 import { collatedTasksExist } from '../helpers';
+import { DEFAULT_USER_ID, PROJECT_KEYS, DATE_FORMAT } from '../constants';
 
 export const useTasks = selectedProject => {
   const [tasks, setTasks] = useState([]);
@@ -12,18 +13,18 @@ export const useTasks = selectedProject => {
     let unsubscribe = firebase
       .firestore()
       .collection('tasks')
-      .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw');
+      .where('userId', '==', DEFAULT_USER_ID);
 
     unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
         ? (unsubscribe = unsubscribe.where('projectId', '==', selectedProject))
-        : selectedProject === 'TODAY'
+        : selectedProject === PROJECT_KEYS.TODAY
         ? (unsubscribe = unsubscribe.where(
             'date',
             '==',
-            moment().format('DD/MM/YYYY')
+            moment().format(DATE_FORMAT)
           ))
-        : selectedProject === 'INBOX' || selectedProject === 0
+        : selectedProject === PROJECT_KEYS.INBOX || selectedProject === 0
         ? (unsubscribe = unsubscribe.where('date', '==', ''))
         : unsubscribe;
 
@@ -34,10 +35,10 @@ export const useTasks = selectedProject => {
       }));
 
       setTasks(
-        selectedProject === 'NEXT_7'
+        selectedProject === PROJECT_KEYS.NEXT_7
           ? newTasks.filter(
               task =>
-                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
+                moment(task.date, DATE_FORMAT).diff(moment(), 'days') <= 7 &&
                 task.archived !== true
             )
           : newTasks.filter(task => task.archived !== true)
@@ -58,7 +59,7 @@ export const useProjects = () => {
     firebase
       .firestore()
       .collection('projects')
-      .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw')
+      .where('userId', '==', DEFAULT_USER_ID)
       .orderBy('projectId')
       .get()
       .then(snapshot => {
@@ -67,11 +68,10 @@ export const useProjects = () => {
           docId: project.id,
         }));
 
-        if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
-          setProjects(allProjects);
-        }
+        setProjects(allProjects);
       });
-  }, [projects]);
+    // Empty dependency array - fetch projects only once on mount
+  }, []);
 
   return { projects, setProjects };
 };
