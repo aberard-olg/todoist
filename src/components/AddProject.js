@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { firebase } from '../firebase';
 import { generatePushId } from '../helpers';
 import { useProjectsValue } from '../context';
+import { DEFAULT_USER_ID } from '../constants';
 
+/**
+ * Component for adding new projects
+ * @param {Object} props - Component props
+ * @param {boolean} [props.shouldShow=false] - Whether to show the add project form initially
+ * @returns {JSX.Element} Add project form component
+ */
 export const AddProject = ({ shouldShow = false }) => {
   const [show, setShow] = useState(shouldShow);
   const [projectName, setProjectName] = useState('');
@@ -19,12 +26,15 @@ export const AddProject = ({ shouldShow = false }) => {
       .add({
         projectId,
         name: projectName,
-        userId: 'jlIFXIwyAL3tzHMtzRbw',
+        userId: DEFAULT_USER_ID,
       })
       .then(() => {
         setProjects([...projects]);
         setProjectName('');
         setShow(false);
+      })
+      .catch((error) => {
+        console.error('Error adding project:', error);
       });
 
   return (

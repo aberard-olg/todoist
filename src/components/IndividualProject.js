@@ -5,6 +5,16 @@ import { useProjectsValue, useSelectedProjectValue } from '../context';
 import { firebase } from '../firebase';
 import { PROJECT_KEYS } from '../constants';
 
+/**
+ * Component for displaying and managing an individual project in the sidebar
+ * @param {Object} props - Component props
+ * @param {Object} props.project - The project object
+ * @param {string} props.project.docId - Firebase document ID
+ * @param {string} props.project.name - Project name
+ * @param {string} [props.project.projectId] - Project ID
+ * @param {string} [props.project.userId] - User ID who owns the project
+ * @returns {JSX.Element} Individual project component with delete functionality
+ */
 export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const { projects, setProjects } = useProjectsValue();
@@ -19,6 +29,9 @@ export const IndividualProject = ({ project }) => {
       .then(() => {
         setProjects([...projects]);
         setSelectedProject(PROJECT_KEYS.INBOX);
+      })
+      .catch((error) => {
+        console.error('Error deleting project:', error);
       });
   };
 
@@ -68,5 +81,10 @@ export const IndividualProject = ({ project }) => {
 };
 
 IndividualProject.propTypes = {
-  project: PropTypes.object.isRequired,
+  project: PropTypes.shape({
+    docId: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    projectId: PropTypes.string,
+    userId: PropTypes.string,
+  }).isRequired,
 };

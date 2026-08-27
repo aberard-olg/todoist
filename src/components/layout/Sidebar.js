@@ -10,6 +10,10 @@ import { useSelectedProjectValue } from '../../context';
 import { AddProject } from '../AddProject';
 import { PROJECT_KEYS } from '../../constants';
 
+/**
+ * Sidebar component with inbox, today, next 7 days, and projects list
+ * @returns {JSX.Element} Sidebar navigation component
+ */
 export const Sidebar = () => {
   const { setSelectedProject } = useSelectedProjectValue();
   const [active, setActive] = useState('inbox');

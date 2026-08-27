@@ -3,6 +3,13 @@ import { FaPizzaSlice } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { AddTask } from '../AddTask';
 
+/**
+ * Header component with logo, quick add task button, and dark mode toggle
+ * @param {Object} props - Component props
+ * @param {boolean} props.darkMode - Current dark mode state
+ * @param {Function} props.setDarkMode - Setter for dark mode state
+ * @returns {JSX.Element} Header component
+ */
 export const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { useSelectedProjectValue, useProjectsValue } from '../context';
 import { IndividualProject } from './IndividualProject';
 
+/**
+ * Component that renders the list of user projects in the sidebar
+ * @param {Object} props - Component props
+ * @param {string|null} [props.activeValue=null] - The initially active project ID
+ * @returns {JSX.Element|null} List of project items or null if no projects
+ */
 export const Projects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);
   const { setSelectedProject } = useSelectedProjectValue();

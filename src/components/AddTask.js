@@ -8,6 +8,15 @@ import { ProjectOverlay } from './ProjectOverlay';
 import { TaskDate } from './TaskDate';
 import { DEFAULT_USER_ID, PROJECT_KEYS, DATE_FORMAT } from '../constants';
 
+/**
+ * Component for adding new tasks
+ * @param {Object} props - Component props
+ * @param {boolean} [props.showAddTaskMain=true] - Whether to show the main add task button
+ * @param {boolean} [props.shouldShowMain=false] - Whether to show the main form initially
+ * @param {boolean} [props.showQuickAddTask] - Whether quick add task mode is active
+ * @param {Function} [props.setShowQuickAddTask] - Setter for quick add task mode
+ * @returns {JSX.Element} Add task form component
+ */
 export const AddTask = ({
   showAddTaskMain = true,
   shouldShowMain = false,
@@ -51,6 +60,9 @@ export const AddTask = ({
           setProject('');
           setShowMain('');
           setShowProjectOverlay(false);
+        })
+        .catch((error) => {
+          console.error('Error adding task:', error);
         })
     );
   };
